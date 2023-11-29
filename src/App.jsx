@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import run from "./Services/Image-text";
-import run_generate from "./Services/Generate-image";
+import { run_text, BadConfig_text } from "./Services/Image-text";
+import { run_generate_image, BadConfig_image } from "./Services/Generate-image";
 
 function App() {
   const [url, setUrl] = useState("#");
@@ -16,15 +16,28 @@ function App() {
   const handleClickAnalyze = async () => {
     setIMG(url);
     setchangedisplay(true);
-    const img = await run(url).then((result) => {
+    try {
+      const result = await run_text(url);
       setText(result.outputs[0].data.text.raw);
-    });
+    } catch (error) {
+      const resultError = BadConfig_text(error);
+      if (resultError.Value) {
+        setText("ERROR: " + resultError.error);
+      }
+    }
   };
   const handleClickGenerate = async () => {
     setchangedisplay(true);
-    const img = await run_generate(url).then((result) => {
+    try {
+      const result = await run_generate_image(url);
       setIMG(`data:image/jpeg;base64,${result}`);
-    });
+      setText();
+    } catch (error) {
+      const resultError = BadConfig_image(error);
+      if (resultError.Value) {
+        setText("ERROR: " + resultError.error);
+      }
+    }
   };
   return (
     <>

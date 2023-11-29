@@ -14,7 +14,11 @@ const PAT = import.meta.env.VITE_PATVALUE;
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
 // Change these to whatever model and text you want to use
-export default async function run_generate(
+export function BadConfig_image(error) {
+  return { error: `Bad Configuration: ${error}`, Value: error ? true : false };
+}
+
+export async function run_generate_image(
   RAW_TEXT = "A penguin watching the sunset"
 ) {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +76,6 @@ export default async function run_generate(
 
       // Create an anchor element for downloading the image
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => error);
   return response;
 }

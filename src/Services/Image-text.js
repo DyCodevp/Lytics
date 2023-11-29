@@ -16,7 +16,10 @@ const MODEL_VERSION_ID = "cdb690f13e62470ea6723642044f95e4";
 ///////////////////////////////////////////////////////////////////////////////////
 // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
 ///////////////////////////////////////////////////////////////////////////////////
-export default async function run(IMAGE_URL = "#") {
+export function BadConfig_text(error) {
+  return { error: `Bad Configuration: ${error}`, Value: error ? true : false };
+}
+export async function run_text(IMAGE_URL = "#") {
   const raw = JSON.stringify({
     user_app_id: {
       user_id: USER_ID,
@@ -55,6 +58,6 @@ export default async function run(IMAGE_URL = "#") {
     requestOptions
   )
     .then((response) => response.json())
-    .catch((error) => console.log("error", error));
+    .catch((error) => error);
   return resultData;
 }

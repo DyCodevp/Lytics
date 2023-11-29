@@ -52,7 +52,6 @@ function App() {
           width: "80%",
           outline: "none",
           fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
-          color: "rgba(255, 255, 255, 0.87)",
         }}
         onChange={handletextChange}
         type="text"
